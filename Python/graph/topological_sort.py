@@ -2,7 +2,7 @@ from heapq import heapify, heappush, heappop
 
 # トポロジカルソート（辞書順最小）
 def topological_sort(graph: list[list[int]]) -> list[int] | None:
-    """
+    """\
     辞書順最小のトポロジカルソート
     ---
     Parameters:
