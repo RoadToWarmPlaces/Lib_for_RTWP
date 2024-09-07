@@ -15,3 +15,7 @@
 6. 実用的であり、不具合が無い、ある程度どの環境でも使えると確認できた場合、良い頃合いでmainブランチに統合します。
 
 何かGit/GitHubの操作で不明点があれば、adminのYuyoまでissuesもしくはRTWPの質問チャンネルで質問お願いします。
+
+### License
+
+The source code is licensed MIT. The website content is licensed CC BY 4.0,see LICENSE.
