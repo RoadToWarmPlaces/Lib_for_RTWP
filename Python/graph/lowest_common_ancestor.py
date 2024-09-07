@@ -88,7 +88,6 @@ class LowestCommonAncestor:
         # 最後に 1 ステップ親方向に辿った頂点が解
         return self._ancestor[0][u]
 
-    # u, v (0-indexed) の距離を求める
     def distance(self, u: int, v: int) -> int:
         """\
         u, v 間の距離を求める
@@ -100,7 +99,6 @@ class LowestCommonAncestor:
         """
         return self._distance[u] + self._distance[v] - 2 * self._distance[self.lca(u, v)]
 
-    # v の親を求める
     def parent(self, v: int) -> int:
         """\
         v の親を求める
