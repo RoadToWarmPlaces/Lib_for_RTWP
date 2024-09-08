@@ -1,3 +1,7 @@
+# Created by harurun4635 on 2024-09-08
+# Copyright (c) 2024 RTWP
+
+import math
 class Mo:
     """
     Mo's algorithm
@@ -34,7 +38,7 @@ class Mo:
         minl = min(l for l,r,i in qry)
         maxl = max(l for l,r,i in qry)
         n = maxl - minl
-        size = n//isqrt(self.q) + 1
+        size = n//math.isqrt(self.q) + 1
         
         self.qry.sort(key = lambda x : (x[0]//size, x[1]*((x[0]//size)%2*2-1)))
     
