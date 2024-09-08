@@ -1,3 +1,6 @@
+# Created by hiro1729 on 2024-09-08
+# Copyright (c) 2024 RTWP
+
 from typing import List
 from math import *
 
