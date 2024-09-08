@@ -14,9 +14,13 @@
    問題なければ、レビュアーがdevelopブランチに統合します。
 6. 実用的であり、不具合が無い、ある程度どの環境でも使えると確認できた場合、良い頃合いでmainブランチに統合します。
 
+ライセンス表記のためソースコードの1行目に以下の記載をお願いします。
+// Created by [貢献者名] on [日付]
+// Copyright (c) 2024 RTWP
+
 何かGit/GitHubの操作で不明点があれば、adminのYuyoまでissuesもしくはRTWPの質問チャンネルで質問お願いします。
 
 ### License
+
 The source code is licensed MIT. The website content is licensed CC BY 4.0,see LICENSE.
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-
