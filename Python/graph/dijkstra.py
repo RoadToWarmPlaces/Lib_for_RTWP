@@ -1,3 +1,6 @@
+# Created by loop0919 on 2024-09-09
+# Copyright (c) 2024 RTWP
+
 from heapq import heappop, heappush
 
 INF = float("inf")
