@@ -6,6 +6,15 @@ from functools import cmp_to_key
 
 class AngleSort:
     def __init__(self, xs: list[int], ys: list[int], mid_x: int, mid_y: int):
+        """
+        AngleSortの初期化
+
+        Parameters :
+            xs : xのlist
+            ys : yのlist
+            mid_x : 中心のx座標
+            mid_y : 中心のy座標
+        """
         self.xs = xs
         self.ys = ys
         self.mid_x = mid_x
@@ -15,6 +24,9 @@ class AngleSort:
     def get(self, i):
         """
         i番目のx座標、y座標を求める。
+
+        Parameters:
+            i: 偏角ソートで何番目の座標か
         """
         return self.xs[self.order[i]], self.ys[self.order[i]]
 
@@ -53,18 +65,16 @@ class AngleSort:
         """
         3角形の面積を求める。
         整数値
+        Parameters:
+            x1, y1 : １個目のx座標y座標
+            x2, y2 : １個目のx座標y座標
+            x3, y3 : １個目のx座標y座標
         """
         return abs((x1 - x3) * (y2 - y3) - (x2 - x3) * (y1 - y3)) // 2
 
     def solve_all_triangle_areas(self):
         """
         i,i+1,中心を結んだ三角形をそれぞれのiについて調べる。
-
-        order : angle_sortの結果
-        xs : xのlist
-        ys : yのlist
-        mid_x : 中心のx座標
-        mid_y : 中心のy座標
         """
         areas = []
         for i in range(len(self.order)):
@@ -83,6 +93,10 @@ class AngleSort:
     def solve_mid_triangle_area(self, i, j):
         """
         中心点と他の２点から面積を求める。
+
+        Parameters:
+            i : 偏角ソートで何番目の座標か(１個目)
+            j : 偏角ソートで何番目の座標か(２個目)
         """
         area = 0
         area += self.solve_triangle_area(
@@ -98,11 +112,6 @@ class AngleSort:
     def angle_sort(self):
         """
         偏角ソートをする。
-
-        xs : xのlist
-        ys : yのlist
-        mid_x : 中心のx座標
-        mid_y : 中心のy座標
         """
         assert len(self.xs) == len(self.ys)
         angles = [i for i in range(len(self.xs))]
