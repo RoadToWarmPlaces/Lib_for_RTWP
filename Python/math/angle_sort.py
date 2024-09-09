@@ -1,3 +1,6 @@
+# Created by nikoro256 on 2024-09-09
+# Copyright (c) 2024 RTWP
+
 from functools import cmp_to_key
 
 
