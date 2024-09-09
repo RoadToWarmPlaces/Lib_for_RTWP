@@ -1,4 +1,8 @@
-from heapq import heapify, heappush, heappop
+# Created by loop0919 on 2024-09-09
+# Copyright (c) 2024 RTWP
+
+from heapq import heapify, heappop, heappush
+
 
 # トポロジカルソート（辞書順最小）
 def topological_sort(graph: list[list[int]]) -> list[int] | None:

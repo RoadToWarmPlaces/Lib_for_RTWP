@@ -1,3 +1,6 @@
+# Created by loop0919 on 2024-09-09
+# Copyright (c) 2024 RTWP
+
 INF = float("inf")
 
 
@@ -21,7 +24,8 @@ def bellman_ford(start: int, graph: list[list[int]], check_negative_cycle: bool 
     for _ in range(n - 1):
         for u in range(n):
             for v, w in graph[u]:
-                dist[v] = min(dist[v], dist[u] + w)
+                if dist[v] > dist[u] + w and dist[u] < INF:
+                    dist[v] = dist[u] + w
 
     if not check_negative_cycle:
         return dist
@@ -29,7 +33,7 @@ def bellman_ford(start: int, graph: list[list[int]], check_negative_cycle: bool 
     for _ in range(n):
         for u in range(n):
             for v, w in graph[u]:
-                if dist[v] > dist[u] + w:
+                if dist[v] > dist[u] + w and dist[u] < INF:
                     dist[v] = -INF
 
     return dist
