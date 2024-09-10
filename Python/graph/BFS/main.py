@@ -1,4 +1,4 @@
-# Created by Yuyo1984 on 2024-09-09
+# Created by Yuyo1984 on 2024-09-11
 # Copyright (c) 2024 RTWP
 
 # グラフの構築、及びBFSのために導入
@@ -18,10 +18,18 @@ class Graph:
     def __init__(self):
         self.graph = dd(list)
 
-    # エッジの追加
+    # 無向エッジの追加
     def add_edge(self, u, v):
         self.graph[u].append(v)
         self.graph[v].append(u)
+
+    # 有向エッジの追加
+    def add_edge2(self, u, v):
+        self.graph[u].append(v)
+
+    # 見てるノードに隣接してるノードを取得
+    def get_neighbor(self, node):
+        return self.graph[node]
 
     # 幅優先探索
     def bfs(self, start, dist):
