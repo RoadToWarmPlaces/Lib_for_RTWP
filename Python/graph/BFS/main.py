@@ -16,23 +16,55 @@ INF = 2 << 60
 class Graph:
     # 初期化
     def __init__(self):
-        self.graph = dd(list)
+        self.graph = dd(set)
+        self.removed_nodes = dd(set)
+        self.removed_edges = set()
 
     # 無向エッジの追加
     def add_edge(self, u, v):
-        self.graph[u].append(v)
-        self.graph[v].append(u)
+        self.graph[u].add(v)
+        self.graph[v].add(u)
 
     # 有向エッジの追加
     def add_edge2(self, u, v):
-        self.graph[u].append(v)
+        self.graph[u].add(v)
+
+    # ノードの削除
+    def remove_node(self, node):
+        if node in self.graph:
+            self.removed_nodes[node] = self.graph.pop(node)
+            for neighbor in self.removed_nodes[node]:
+                self.graph[neighbor].remove(node)
+
+    # ノードの復元
+    def restore_node(self, node):
+        if node in self.removed_nodes:
+            self.graph[node] = self.removed_nodes.pop(node)
+            for neighbor in self.graph[node]:
+                self.graph[neighbor].add(node)
+
+    # エッジの削除
+    def remove_edge(self, node1, node2):
+        edge = tuple(sorted((node1, node2)))
+        if edge not in self.removed_edges:
+            self.graph[node1].remove(node2)
+            self.graph[node2].remove(node1)
+            self.removed_edges.add(edge)
+
+    # エッジの復元
+    def restore_edge(self, node1, node2):
+        edge = tuple(sorted((node1, node2)))
+        if edge in self.removed_edges:
+            self.graph[node1].add(node2)
+            self.graph[node2].add(node1)
+            self.removed_edges.remove(edge)
 
     # 見てるノードに隣接してるノードを取得
     def get_neighbor(self, node):
         return self.graph[node]
 
-    # 幅優先探索
-    def bfs(self, start, dist):
+    # 幅優先探索(始点からの最短経路長を返す)
+    def bfs_getdist(self, start, dist):
         dist[start] = 0
         que = dq([start])
 
@@ -44,6 +76,28 @@ class Graph:
                     que.append(neighbor)
 
         return dist
+
+    # 幅優先探索(グラフが連結か判定)
+    def bfs_connected(self, start):
+        visited = set()
+        que = dq([start])
+        visited.add(start)
+
+        while que:
+            node = que.popleft()
+            for neighbor in self.graph[node]:
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    que.append(neighbor)
+
+        return len(visited) == len(self.graph)
+
+    def is_connected(self):
+        if not self.graph:
+            return True
+
+        start = next(iter(self.graph))
+        return self.bfs_connected(start)
 
 
 # グリッドをグラフにする関数
@@ -80,7 +134,7 @@ def main():
     # 取得したい距離を一次元配列で持っておく（初期値はINFで）
     dist = [INF for _ in range(r * c + 1)]
     start = start[0] * c + start[1]
-    res = graph.bfs(start, dist)
+    res = graph.bfs_getdist(start, dist)
 
     idx = goal[0] * c + goal[1]
     ans = res[idx]
