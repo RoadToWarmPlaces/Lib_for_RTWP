@@ -77,6 +77,28 @@ class Graph:
 
         return dist
 
+    # 幅優先探索(最短経路がいくつあるか)
+    def bfs_cntshortest(self, start, goal):
+        dist = dd(lambda: INF)
+        ways = dd(int)
+
+        dist[start] = 0
+        ways[start] = 1
+
+        que = dq([start])
+
+        while que:
+            node = que.popleft()
+            for neighbor in self.graph[node]:
+                if dist[neighbor] == INF:
+                    dist[neighbor] = dist[node] + 1
+                    que.append(neighbor)
+
+                if dist[neighbor] == dist[node] + 1:
+                    ways[neighbor] += ways[node]
+
+        return ways[goal]
+
     # 幅優先探索(グラフが連結か判定)
     def bfs_connected(self, start):
         visited = set()
@@ -125,21 +147,20 @@ def grid_to_graph(grid):
 
 # 以下具体例（ABC007-C）
 def main():
-    r, c = map(int, input().split())
-    start = list(map(lambda x: int(x) - 1, input().split()))
-    goal = list(map(lambda x: int(x) - 1, input().split()))
-    grid = [list(input()) for _ in range(r)]
-    graph = grid_to_graph(grid)
+    # r, c = map(int, input().split())
+    # start = list(map(lambda x: int(x) - 1, input().split()))
+    # goal = list(map(lambda x: int(x) - 1, input().split()))
+    # grid = [list(input()) for _ in range(r)]
+    # graph = grid_to_graph(grid)
 
     # 取得したい距離を一次元配列で持っておく（初期値はINFで）
-    dist = [INF for _ in range(r * c + 1)]
-    start = start[0] * c + start[1]
-    res = graph.bfs_getdist(start, dist)
+    # dist = [INF for _ in range(r * c + 1)]
+    # start = start[0] * c + start[1]
+    # res = graph.bfs_getdist(start, dist)
 
-    idx = goal[0] * c + goal[1]
-    ans = res[idx]
-    print(ans)
-
+    # idx = goal[0] * c + goal[1]
+    # ans = res[idx]
+    # print(ans)
 
 if __name__ == "__main__":
     main()
