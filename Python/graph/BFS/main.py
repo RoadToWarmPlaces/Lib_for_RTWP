@@ -1,4 +1,4 @@
-# Created by Yuyo1984 on 2024-09-11
+# Created by Yuyo1984 on 2024-09-12
 # Copyright (c) 2024 RTWP
 
 # グラフの構築、及びBFSのために導入
@@ -63,10 +63,11 @@ class Graph:
     def get_neighbor(self, node):
         return self.graph[node]
 
-    # 幅優先探索(始点からの最短経路長を返す)
-    def bfs_getdist(self, start, dist):
-        dist[start] = 0
+    # 幅優先探索
+    # あくまでひな形ですので、問題に合わせて各自書き換えてお使いください。
+    def bfs(self, start, dist):
         que = dq([start])
+        dist[start] = 0
 
         while que:
             node = que.popleft()
@@ -74,52 +75,7 @@ class Graph:
                 if dist[neighbor] == INF:
                     dist[neighbor] = dist[node] + 1
                     que.append(neighbor)
-
         return dist
-
-    # 幅優先探索(最短経路がいくつあるか)
-    def bfs_cntshortest(self, start, goal):
-        dist = dd(lambda: INF)
-        ways = dd(int)
-
-        dist[start] = 0
-        ways[start] = 1
-
-        que = dq([start])
-
-        while que:
-            node = que.popleft()
-            for neighbor in self.graph[node]:
-                if dist[neighbor] == INF:
-                    dist[neighbor] = dist[node] + 1
-                    que.append(neighbor)
-
-                if dist[neighbor] == dist[node] + 1:
-                    ways[neighbor] += ways[node]
-
-        return ways[goal]
-
-    # 幅優先探索(グラフが連結か判定)
-    def bfs_connected(self, start):
-        visited = set()
-        que = dq([start])
-        visited.add(start)
-
-        while que:
-            node = que.popleft()
-            for neighbor in self.graph[node]:
-                if neighbor not in visited:
-                    visited.add(neighbor)
-                    que.append(neighbor)
-
-        return len(visited) == len(self.graph)
-
-    def is_connected(self):
-        if not self.graph:
-            return True
-
-        start = next(iter(self.graph))
-        return self.bfs_connected(start)
 
 
 # グリッドをグラフにする関数
@@ -147,20 +103,21 @@ def grid_to_graph(grid):
 
 # 以下具体例（ABC007-C）
 def main():
-    # r, c = map(int, input().split())
-    # start = list(map(lambda x: int(x) - 1, input().split()))
-    # goal = list(map(lambda x: int(x) - 1, input().split()))
-    # grid = [list(input()) for _ in range(r)]
-    # graph = grid_to_graph(grid)
+    r, c = map(int, input().split())
+    start = list(map(lambda x: int(x) - 1, input().split()))
+    goal = list(map(lambda x: int(x) - 1, input().split()))
+    grid = [list(input()) for _ in range(r)]
+    graph = grid_to_graph(grid)
 
     # 取得したい距離を一次元配列で持っておく（初期値はINFで）
-    # dist = [INF for _ in range(r * c + 1)]
-    # start = start[0] * c + start[1]
-    # res = graph.bfs_getdist(start, dist)
+    dist = [INF for _ in range(r * c + 1)]
+    start = start[0] * c + start[1]
+    res = graph.bfs(start, dist)
 
-    # idx = goal[0] * c + goal[1]
-    # ans = res[idx]
-    # print(ans)
+    idx = goal[0] * c + goal[1]
+    ans = res[idx]
+    print(ans)
+
 
 if __name__ == "__main__":
     main()
